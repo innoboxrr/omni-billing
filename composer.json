@@ -1,0 +1,24 @@
+{
+    "name": "innoboxrr/omni-billing",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Innoboxrr\\OmniBilling\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "OmniBilling es un paquete de facturaci\u00f3n agn\u00f3stico y modular dise\u00f1ado para integrar y gestionar sin problemas m\u00faltiples pasarelas de pago, ofreciendo una interfaz unificada para operaciones de pago transversales y una implementaci\u00f3n sencilla para desarrolladores."
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": [],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Innoboxrr\\OmniBilling\\Providers\\OmniBillingServiceProvider"
+            ]
+        }
+    }
+}
