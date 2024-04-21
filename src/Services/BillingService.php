@@ -12,6 +12,9 @@ class BillingService
 
     public function __construct($gatewayKey, array $config = [])
     {
+        if(count($config) == 0) {
+            $config = config("omnibilling.processors_config.$gatewayKey");
+        }
         $this->gateway = app("omni-billing.$gatewayKey", [$config]);
     }
 

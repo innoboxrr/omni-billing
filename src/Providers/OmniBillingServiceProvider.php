@@ -10,7 +10,7 @@ class OmniBillingServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerPaymentGateways();
-        // $this->mergeConfigFrom(__DIR__ . '/../../config/innoboxrromnibilling.php', 'innoboxrromnibilling');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/omnibilling.php', 'omnibilling');
     }
 
     public function boot()
@@ -24,7 +24,7 @@ class OmniBillingServiceProvider extends ServiceProvider
             
             // $this->publishes([__DIR__.'/../../resources/views' => resource_path('views/vendor/innoboxrromnibilling'),], 'views');
 
-            // $this->publishes([__DIR__.'/../../config/innoboxrromnibilling.php' => config_path('innoboxrromnibilling.php')], 'config');
+            $this->publishes([__DIR__.'/../../config/omnibilling.php' => config_path('omnibilling.php')], 'config');
 
         }
 
