@@ -11,10 +11,12 @@ class BillingService
     protected $gateway;
 
     public function __construct($gatewayKey, array $config = [])
-    {
+    {   
+        $redirects = (array) config('omnibilling.redirects');
         if(count($config) == 0) {
             $config = config("omnibilling.processors_config.$gatewayKey");
         }
+        $config = [...$config, 'redirects' => $redirects];
         $this->gateway = app("omni-billing.$gatewayKey", [$config]);
     }
 

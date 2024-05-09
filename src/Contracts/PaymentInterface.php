@@ -2,6 +2,8 @@
 
 namespace Innoboxrr\OmniBilling\Contracts;
 
+use Innoboxrr\OmniBilling\Common\Responses\BasePaymentResponse;
+
 interface PaymentInterface
 {
     /**
@@ -10,7 +12,7 @@ interface PaymentInterface
      * @param array $data Información necesaria para realizar el cargo, como el monto, moneda, y detalles del pagador.
      * @return mixed
      */
-    public function charge(array $data);
+    public function charge(array $data) : BasePaymentResponse;
 
     /**
      * Procesa un reembolso a un cargo previamente realizado.
