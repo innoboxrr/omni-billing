@@ -15,6 +15,14 @@ interface PaymentInterface
     public function charge(array $data) : BasePaymentResponse;
 
     /**
+     * Verificar el estado de un cargo 
+     * 
+     * @param string $transactionId El identificador de la transacción a verificar.
+     * @return mixed
+     */
+    public function verify($transaction) : bool;
+
+    /**
      * Procesa un reembolso a un cargo previamente realizado.
      *
      * @param string $transactionId El identificador de la transacción a reembolsar.

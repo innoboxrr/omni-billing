@@ -19,4 +19,11 @@ interface PaymentResponseInterface
      */
     public function getRedirectUrl(): string;
 
+    /**
+     * Recuperar estado
+     * 
+     * @return string
+     */
+    public function getStatus(): string;
+
 }
