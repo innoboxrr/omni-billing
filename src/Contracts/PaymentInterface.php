@@ -10,7 +10,7 @@ interface PaymentInterface
      * Realiza un cargo a una tarjeta de crédito o débito o medio de pago alternativo.
      *
      * @param array $data Información necesaria para realizar el cargo, como el monto, moneda, y detalles del pagador.
-     * @return mixed
+     * @return BasePaymentResponse
      */
     public function charge(array $data) : BasePaymentResponse;
 

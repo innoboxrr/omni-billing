@@ -2,16 +2,17 @@
 
 namespace Innoboxrr\OmniBilling\Contracts;
 
+use Innoboxrr\OmniBilling\Common\Responses\BaseSubscriptionResponse;
+
 interface SubscriptionInterface
 {
     /**
      * Crea una nueva suscripción para un cliente con un plan específico.
      *
-     * @param mixed $customer Identificador o información del cliente.
-     * @param mixed $plan Identificador o información del plan de suscripción.
-     * @return mixed
+     * @param array $data Información necesaria para realizar el cargo, como el monto, moneda, y detalles del pagador.
+     * @return BaseSubscriptionResponse
      */
-    public function createSubscription($customer, $plan);
+    public function createSubscription(array $data): BaseSubscriptionResponse;
 
     /**
      * Cancela una suscripción existente.
