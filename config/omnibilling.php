@@ -10,6 +10,7 @@ return [
             'base_url' => env('STRIPE_BASE_URL'),
             'webhook_url' => env('STRIPE_WEBHOOK_URL'),
             'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+            'portal_return_url' => env('STRIPE_PORTAL_RETURN_URL', url('/')),
         ],
 
         'paypal' => [
