@@ -10,6 +10,8 @@ class BillingService
 {
     protected $gateway;
 
+    protected $processor;
+
     public function __construct($gatewayKey, array $config = [])
     {   
         $redirects = (array) config('omnibilling.redirects');
@@ -18,6 +20,12 @@ class BillingService
         }
         $config = [...$config, 'redirects' => $redirects];
         $this->gateway = app("omni-billing.$gatewayKey", [$config]);
+        $this->processor = $gatewayKey;
+    }
+
+    public function getProcessor()
+    {
+        return $this->processor;
     }
 
     public function __call($method, $arguments)
