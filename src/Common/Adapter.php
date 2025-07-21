@@ -6,30 +6,21 @@ use Illuminate\Support\Arr;
 
 abstract class Adapter
 {
-
     protected array $config;
-
     protected string $baseUrl;
-
     protected string $secret;
-
     protected string $public;
-
     protected bool $testMode;
-
     protected string $successRedirect;
-
     protected string $cancelRedirect;
-
     protected string $errorRedirect;
-
 
     public function __construct(array $config)
     {
         $this->setUp($config);
     }
 
-    protected function setUp($config = [])
+    protected function setUp(array $config): void
     {
         $this->config = $config;
         $this->baseUrl = Arr::get($config, 'base_url');
@@ -41,16 +32,36 @@ abstract class Adapter
         $this->errorRedirect = url(Arr::get($config, 'redirects.error'));
     }
 
-    protected function getUrl(string $path)
+    protected function getUrl(string $path): string
     {
-        return $this->baseUrl . $path;
+        return rtrim($this->baseUrl, '/') . '/' . ltrim($path, '/');
     }
 
-    protected function getSuccessRedirect(array $data)
+    protected function appendParams(string $url, array $params): string
     {
-        $id = $data['id'] ?? '';
-        $secret = encrypt($data['secret'] ?? '');
-        return $this->successRedirect . '?id=' . $id . '&secret=' . $secret;
+        $separator = str_contains($url, '?') ? '&' : '?';
+        return $url . $separator . http_build_query($params);
     }
 
+    protected function getSuccessRedirect(array $data): string
+    {
+        return $this->appendParams($this->successRedirect, [
+            'id' => $data['id'] ?? '',
+            'secret' => encrypt($data['secret'] ?? ''),
+        ]);
+    }
+
+    protected function getCancelRedirect(array $data): string
+    {
+        return $this->appendParams($this->cancelRedirect, [
+            'id' => $data['id'] ?? '',
+        ]);
+    }
+
+    protected function getErrorRedirect(array $data): string
+    {
+        return $this->appendParams($this->errorRedirect, [
+            'id' => $data['id'] ?? '',
+        ]);
+    }
 }
