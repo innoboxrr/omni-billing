@@ -20,7 +20,7 @@ abstract class Adapter
         $this->setUp($config);
     }
 
-    protected function setUp(array $config): void
+    protected function setUp($config = [])
     {
         $this->config = $config;
         $this->baseUrl = Arr::get($config, 'base_url');
