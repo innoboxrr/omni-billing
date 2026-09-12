@@ -9,16 +9,30 @@
     },
     "authors": [
         {
-            "name": "OmniBilling es un paquete de facturaci\u00f3n agn\u00f3stico y modular dise\u00f1ado para integrar y gestionar sin problemas m\u00faltiples pasarelas de pago, ofreciendo una interfaz unificada para operaciones de pago transversales y una implementaci\u00f3n sencilla para desarrolladores."
+            "name": "OmniBilling es un paquete de facturación agnóstico y modular diseñado para integrar y gestionar sin problemas múltiples pasarelas de pago, ofreciendo una interfaz unificada para operaciones de pago transversales y una implementación sencilla para desarrolladores."
         }
     ],
     "minimum-stability": "stable",
-    "require": [],
+    "require": {
+        "php": "^8.3",
+        "illuminate/support": "^13.0"
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "Innoboxrr\\OmniBilling\\Providers\\OmniBillingServiceProvider"
             ]
         }
-    }
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "phpunit/phpunit": "^11.5 || ^12.0",
+        "innoboxrr/larapack-generator": "^7.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Innoboxrr\\OmniBilling\\Tests\\": "tests/"
+        }
+    },
+    "description": "Capa comun de facturacion para Laravel: contratos, respuestas base y webhooks. Las pasarelas (Stripe, PayPal) viven en su propio paquete y se registran solas."
 }
