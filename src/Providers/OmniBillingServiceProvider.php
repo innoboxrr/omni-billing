@@ -27,7 +27,14 @@ class OmniBillingServiceProvider extends ServiceProvider
 
     protected function registerPaymentGateways()
     {
-        $path = base_path('vendor/composer/installed.json');
+        $path = $this->installedJsonPath();
+
+        // Sin el registro de Composer no hay pasarelas que descubrir, pero eso no
+        // es motivo para que la aplicacion no arranque.
+        if ($path === null) {
+            return;
+        }
+
         $installed = json_decode(file_get_contents($path), true);
         $packages = $installed['packages'] ?? $installed;
 
@@ -41,5 +48,30 @@ class OmniBillingServiceProvider extends ServiceProvider
             }
         }
     }
-    
+
+    /**
+     * El installed.json de Composer.
+     *
+     * Se buscaba solo en base_path('vendor'), que es donde esta en una aplicacion
+     * normal, pero no cuando el vendor vive en otro sitio: un paquete probado con
+     * Testbench, o un despliegue con COMPOSER_VENDOR_DIR. El propio autoloader
+     * sabe donde esta su directorio, asi que se le pregunta a el.
+     */
+    protected function installedJsonPath(): ?string
+    {
+        $candidates = [base_path('vendor/composer/installed.json')];
+
+        if (class_exists(\Composer\Autoload\ClassLoader::class)) {
+            $candidates[] = dirname((new \ReflectionClass(\Composer\Autoload\ClassLoader::class))->getFileName()) . '/installed.json';
+        }
+
+        foreach ($candidates as $candidate) {
+            if (is_file($candidate)) {
+                return $candidate;
+            }
+        }
+
+        return null;
+    }
+
 }
